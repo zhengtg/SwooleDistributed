@@ -2540,6 +2540,24 @@ class Miner
                     throw $e;
                 }
             }
+            catch (\Exception $ee) {
+                // pipe broken
+                if ($ee->getCode() == 8 && preg_match('/^PDO::prepare\(\):\ send\ of\ [0-9]*\ bytes\ failed\ with\ errno\=32\ Broken\ pipe/i', $ee->getMessage())) {
+                    $this->setPdoConnection(null);
+                    $this->pdoConnect($this->activeConfig);
+                    try {
+                        $PdoConnection = $this->getPdoConnection();
+                        $PdoStatement = $PdoConnection->prepare($statement);
+                        $PdoStatement->execute($this->getPlaceholderValues());
+                    } catch (\PDOException $ex) {
+                        $this->pdoRollBackTrans();
+                        throw $ex;
+                    }
+                } else {
+                    $this->pdoRollBackTrans();
+                    throw $ee;
+                }
+            }
             return $PdoStatement;
         } else {
             return false;

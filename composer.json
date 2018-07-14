@@ -23,12 +23,12 @@
   },
   "authors": [
     {
-      "name": "tmtbe",
-      "email": "896369042@qq.com",
-      "homepage": "https://github.com/tmtbe"
+      "name": "tanson",
+      "email": "277053812@qq.com",
+      "homepage": "https://github.com/zhengtg"
     }
   ],
-  "name": "tmtbe/swooledistributed",
+  "name": "tanson/swooledistributed",
   "type": "library",
   "keywords": ["server", "swoole", "distributed"],
   "description": "In order to develop the api server",
